@@ -7,7 +7,7 @@ Built on [Dust](https://dust.tt). Works for any role: sales, recruiting, product
 ## Start here
 
 1. Create a fresh Pod in Dust.
-2. Drop `Command_Center_Setup_v7.md` into it. The file instructs the agent to start on its own; if nothing happens, say: **"set up this Pod using this file."**
+2. Drop `Command_Center_Setup_v8.md` into it. The file instructs the agent to start on its own; if nothing happens, say: **"set up this Pod using this file."**
 3. Answer a handful of plain-language questions. Pick your size:
    - **Simple** - one morning agent + one Slack brief with decisions. Live in minutes.
    - **Standard** - adds an evening agent, a watchdog, and a live dashboard pinned to the Pod.
@@ -23,5 +23,6 @@ The system never sends an email (drafts only), never changes a CRM stage or reco
 
 | File | What it is |
 |---|---|
-| `Command_Center_Setup_v7.md` | **Current.** Generalized, all roles, Simple/Standard/Full modes, plain-language setup. New in v7: the human-readable file system (folders named for what a human looks for; no `logs/` junk drawer) and the MOVED.md pattern for restructuring a live Pod safely. |
-| `Command_Center_Setup_v6.md` | Previous edition. Kept as lineage; older versions live in git history. |
+| `Command_Center_Setup_v8.md` | **Current.** Generalized, all roles, Simple/Standard/Full modes, plain-language setup. New in v8: canonical four-engine naming (🚒 Morning Engine / 🚒 Evening Engine / 🚒 Weekly Prep Engine / 🚒 Cleanup Engine, retiring the v5 name "Sentinel"), a thin Morning Engine that spawns a fresh daily worker conversation, the Compass / Daily Research + Prep calendar split, the Pod-task naming convention with tasks as the single commitment ledger, full-week meeting prep with calendar QA guards, and the Cleanup Engine four-engine schedule health audit. |
+| `Command_Center_Setup_v7.md` | Previous edition. New in v7: the human-readable file system (folders named for what a human looks for; no `logs/` junk drawer) and the MOVED.md pattern for restructuring a live Pod safely. |
+| `Command_Center_Setup_v6.md` | Older edition. Kept as lineage; older versions live in git history. |

@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nicsiegledust/gtm_command_center/contracts/team-os-goals-ledger.schema.json",
+  "title": "Team OS Goals Ledger v2",
+  "type": "object",
+  "required": ["schemaVersion", "contract", "pod", "dustweek", "updatedAt", "goals", "commitments", "asks", "decisions", "risks"],
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "contract": { "const": "team_os_goals_ledger_v2" },
+    "pod": {
+      "type": "object",
+      "required": ["id", "name", "layer", "unit"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^vlt_" },
+        "name": { "type": "string" },
+        "layer": { "const": "team_os" },
+        "unit": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "dustweek": { "type": "integer", "minimum": 1 },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "goals": { "type": "array", "items": { "$ref": "#/$defs/ledgerItem" } },
+    "commitments": { "type": "array", "items": { "$ref": "#/$defs/ledgerItem" } },
+    "asks": { "type": "array", "items": { "$ref": "#/$defs/ledgerItem" } },
+    "decisions": { "type": "array", "items": { "$ref": "#/$defs/ledgerItem" } },
+    "risks": { "type": "array", "items": { "$ref": "#/$defs/ledgerItem" } }
+  },
+  "$defs": {
+    "ledgerItem": {
+      "type": "object",
+      "required": ["id", "type", "text", "dri", "due", "state", "rag", "cpTags", "source", "evidence", "lineage", "promotion"],
+      "properties": {
+        "id": { "type": "string", "minLength": 8 },
+        "type": { "enum": ["goal", "commitment", "ask", "decision", "risk"] },
+        "text": { "type": "string", "minLength": 1 },
+        "dri": {
+          "type": "object",
+          "required": ["name", "status"],
+          "properties": {
+            "name": { "type": ["string", "null"] },
+            "slackUserId": { "type": ["string", "null"] },
+            "status": { "enum": ["named", "owner_tbd", "role_only", "not_applicable"] }
+          },
+          "additionalProperties": true
+        },
+        "due": { "type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}-\\d{2}$|^$" },
+        "state": { "enum": ["open", "in_progress", "waiting", "scheduled", "done", "deferred", "killed"] },
+        "rag": { "enum": ["green", "amber", "red", "unknown"] },
+        "cpTags": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^CP[1-9][0-9]*$" },
+          "uniqueItems": true
+        },
+        "source": {
+          "type": "object",
+          "required": ["path"],
+          "properties": {
+            "podId": { "type": ["string", "null"] },
+            "path": { "type": "string" },
+            "channelId": { "type": ["string", "null"] },
+            "url": { "type": ["string", "null"] }
+          },
+          "additionalProperties": true
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": { "type": "string" },
+              "url": { "type": ["string", "null"] },
+              "ref": { "type": ["string", "null"] },
+              "summary": { "type": ["string", "null"] }
+            },
+            "additionalProperties": true
+          }
+        },
+        "lineage": {
+          "type": "object",
+          "required": ["originLayer", "originPodId", "originItemId", "createdAt", "lastTouchedAt"],
+          "properties": {
+            "originLayer": { "enum": ["personal_os", "team_os", "hq_os", "account_os", "external"] },
+            "originPodId": { "type": ["string", "null"] },
+            "originItemId": { "type": ["string", "null"] },
+            "createdAt": { "type": "string", "format": "date-time" },
+            "lastTouchedAt": { "type": "string", "format": "date-time" }
+          },
+          "additionalProperties": true
+        },
+        "promotion": {
+          "type": "object",
+          "required": ["eligible", "criteria", "targetLayer", "hqAskId", "personalCommitmentId", "promotedAt", "acceptedAt"],
+          "properties": {
+            "eligible": { "type": "boolean" },
+            "criteria": { "type": "array", "items": { "type": "string" } },
+            "targetLayer": { "type": ["string", "null"], "enum": ["team_os", "hq_os", "personal_os", null] },
+            "hqAskId": { "type": ["string", "null"] },
+            "personalCommitmentId": { "type": ["string", "null"] },
+            "promotedAt": { "type": ["string", "null"], "format": "date-time" },
+            "acceptedAt": { "type": ["string", "null"], "format": "date-time" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

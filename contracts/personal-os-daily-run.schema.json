@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nicsiegledust/gtm_command_center/contracts/personal-os-daily-run.schema.json",
+  "title": "Personal OS Daily Run v1",
+  "type": "object",
+  "required": ["schemaVersion", "contract", "owner", "runDate", "updatedAt", "engine", "dataQuality", "priorities", "tasks", "meetings", "signals"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "contract": { "const": "personal_os_daily_run_v1" },
+    "owner": {
+      "type": "object",
+      "required": ["name", "email"],
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "slackUserId": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "runDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "engine": {
+      "type": "object",
+      "required": ["name", "wakeUpId", "conversationId", "fireCount"],
+      "properties": {
+        "name": { "type": "string" },
+        "wakeUpId": { "type": "string" },
+        "conversationId": { "type": "string" },
+        "fireCount": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    },
+    "dataQuality": {
+      "type": "object",
+      "required": ["rag", "errors"],
+      "properties": {
+        "rag": { "enum": ["green", "amber", "red", "unknown"] },
+        "errors": { "type": "array", "items": { "type": "string" } },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "priorities": { "type": "array", "items": { "$ref": "#/$defs/personalItem" } },
+    "tasks": { "type": "array", "items": { "$ref": "#/$defs/personalItem" } },
+    "meetings": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+    "signals": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+  },
+  "$defs": {
+    "personalItem": {
+      "type": "object",
+      "required": ["id", "text", "visibility", "state", "source"],
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string" },
+        "visibility": { "enum": ["personal", "team_visible", "cross_functional"] },
+        "state": { "enum": ["open", "in_progress", "waiting", "scheduled", "done", "deferred", "killed"] },
+        "source": { "type": "object", "additionalProperties": true },
+        "due": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

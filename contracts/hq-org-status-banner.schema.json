@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nicsiegledust/gtm_command_center/contracts/hq-org-status-banner.schema.json",
+  "title": "HQ OS Org Status Banner v2",
+  "type": "object",
+  "required": ["schemaVersion", "contract", "updatedAt", "companyRag", "priorityPulse", "teams", "qa"],
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "contract": { "const": "hq_org_status_banner_v2" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "companyRag": { "enum": ["green", "amber", "red", "unknown"] },
+    "priorityPulse": {
+      "type": "object",
+      "patternProperties": {
+        "^CP[1-9][0-9]*$": {
+          "type": "object",
+          "required": ["rag", "label"],
+          "properties": {
+            "rag": { "enum": ["green", "amber", "red", "unknown"] },
+            "label": { "type": "string" },
+            "summary": { "type": "string" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "teams": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["rag", "updatedAt"],
+        "properties": {
+          "rag": { "enum": ["green", "amber", "red", "unknown"] },
+          "updatedAt": { "type": "string" },
+          "metrics": { "type": "array" },
+          "openAsks": { "type": "integer", "minimum": 0 }
+        },
+        "additionalProperties": true
+      }
+    },
+    "qa": {
+      "type": "object",
+      "required": ["qaFailed", "checkedAt"],
+      "properties": {
+        "qaFailed": { "type": "boolean" },
+        "checkedAt": { "type": "string", "format": "date-time" },
+        "errors": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

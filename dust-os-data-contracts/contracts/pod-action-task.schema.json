@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/pod-action-task-v1.schema.json",
+  "title": "Pod Action Task v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["taskId", "sourceItemId", "owningPod", "state", "createdAt"],
+  "properties": {
+    "taskId": { "type": "string" },
+    "sourceItemId": { "type": "string" },
+    "owningPod": { "type": "string" },
+    "assigneeUserId": { "type": ["string", "null"] },
+    "state": { "enum": ["todo", "in_progress", "done", "blocked", "unassigned"] },
+    "createdAt": { "type": "string" },
+    "doneRationale": { "type": ["string", "null"] }
+  }
+}

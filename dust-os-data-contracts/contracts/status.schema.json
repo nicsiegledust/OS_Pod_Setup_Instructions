@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/status-v1.schema.json",
+  "title": "OS Status v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["state", "rag"],
+  "properties": {
+    "state": { "enum": ["proposed", "open", "in_progress", "waiting", "blocked", "at_risk", "due_today", "due_today_unconfirmed", "due_next", "overdue", "redated", "done", "decided", "closed", "stale", "watch"] },
+    "rag": { "enum": ["green", "yellow", "red", "unknown"] },
+    "confidence": { "enum": ["high", "medium", "low"] },
+    "reason": { "type": "string", "maxLength": 500 },
+    "lastSignalAt": { "type": "string" },
+    "quietDays": { "type": "integer", "minimum": 0 }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "package": "dust-os-data-contracts",
+  "version": "v8",
+  "createdAt": "2026-06-24",
+  "purpose": "External reference package for Dust Pod OS architecture — all sensitive data scrubbed",
+  "layers": {
+    "company_os": {
+      "description": "Company-level rollup layer. One Pod. Reads 7 Team OS ledgers daily. Promotes only cross-functional exceptions. Posts to company Slack channel.",
+      "keyFiles": {
+        "company-os/pulse/org-status-banner.json": "Daily company state snapshot: RAG per CP, top exceptions, team-level RAG grid",
+        "company-os/pulse/priority-pulse.json": "Per-priority rolling pulse with evidence and historical status log",
+        "company-os/pulse/os-contract-registry.json": "Pod registry: all OS pods, their layers, and their canonical file paths",
+        "company-os/system/handoff-status.json": "Engine config: wake-up schedule, last run, upstream channels, area lead",
+        "company-os/people/roster.json": "Company-wide identity roster (name, role, team, site)"
+      }
+    },
+    "team_os": {
+      "description": "Team-level operating layer. 7 Pods (CS, Sales, SE, Marketing, Talent, People, Product). Each runs a daily agent that reads signals and writes a goals ledger.",
+      "commonFiles": {
+        "pulse/goals-ledger.json": "THE canonical Team OS file. Arrays: goals[], commitments[], asks[], decisions[], risks[]. Every item: base-os-item shape.",
+        "system/handoff-status.json": "Engine config: wake-up schedule, fire count, last run metadata",
+        "pulse/roster.json": "Team member list (identity-level only)"
+      },
+      "teamSpecificFiles": {
+        "cs-os/pulse/harbor-telemetry.json": "CS banner command center data",
+        "sales-os/pulse/sales-command-center.json": "Sales scorecard + RAG state + North Star",
+        "sales-os/pulse/account-radar.json": "Account lane registry",
+        "sales-os/pulse/listening-sources.json": "Slack channel health registry",
+        "se-os/pulse/team-telemetry.json": "SE scorecard: Engagement Scoping + Product Validation",
+        "marketing-os/pulse/marketing-telemetry.json": "Marketing metrics snapshot",
+        "talent-os/pulse/talent-command-center.json": "Talent command center",
+        "people-os/pulse/command-center.json": "People command center — aggregate/process only",
+        "product-os/pulse/command-center.json": "Product command center: recent shipments + active commitments"
+      }
+    },
+    "personal_os": {
+      "description": "Individual-level operating layer. One Pod per person. Morning + evening engines.",
+      "keyFiles": {
+        "personal-os/dashboard_data.json": "Banner frame data (schema: banner.v2.4-focus-strip)",
+        "personal-os/me/context/profile.json": "Identity + integrations config",
+        "personal-os/me/context/priorities.json": "Quarter-level beacons with RAG and CP tag",
+        "personal-os/me/work-style/tasks.json": "Task contract, naming, aging rules",
+        "personal-os/me/watch/topics.json": "Monitored signals",
+        "personal-os/state/handoff-status.json": "Morning/Evening engine config + last run"
+      }
+    }
+  },
+  "schemas": {
+    "contracts/base-os-item.schema.json": "Universal base item. Required: id, type, text, state, source, evidence, firstSeen, lastTouched.",
+    "contracts/os-item-v2.schema.json": "Normalized item format (vNext).",
+    "contracts/team-os-goals-ledger.schema.json": "Team ledger envelope. Required: schemaVersion=2, pod, goals[], commitments[], asks[], decisions[], risks[]",
+    "contracts/company-commitment-router.schema.json": "Company exception router. Promoted items only.",
+    "contracts/personal-os-team-signal.schema.json": "Personal to Team signal bus with privacyBoundary",
+    "contracts/alignment.schema.json": "CP tags + ownershipRoute + businessArea + craftArea + parentRefs",
+    "contracts/evidence.schema.json": "Evidence types: slack_thread | slack_message | pod_file | ...",
+    "contracts/status.schema.json": "state + rag + confidence + reason + lastSignalAt + quietDays",
+    "contracts/metric.schema.json": "name + unit + current + target + baseline + percentToGoal + direction",
+    "contracts/handoff.schema.json": "requestedAction + acceptanceState + privacyBoundary",
+    "contracts/pod-action-task.schema.json": "taskId + sourceItemId + owningPod + assigneeUserId + state",
+    "contracts/cp-tag.schema.json": "CP1 through CP7 or [drift?]",
+    "contracts/recommended-action.schema.json": "rank + actionScore + theRead + thePlay + taskAlignment + feedbackState"
+  },
+  "designPrinciples": [
+    "Pod files are canonical state — frames display them, agents write them, Slack confirms them",
+    "CP tags (CP1–CP7) map all work to company priorities — enables automatic rollup",
+    "RAG at every level — Red items are exceptions; Company OS promotes only exceptions",
+    "Ownership routes classify promoted items: Business | Craft | Coaching | Company Decision",
+    "Freshness gates — every engine validates file timestamps before publishing",
+    "Privacy by layer — People/Talent are aggregate-only, Personal OS is private by default",
+    "Frames are display only — no business logic, no writes"
+  ]
+}

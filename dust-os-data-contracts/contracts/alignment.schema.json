@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/alignment-v1.schema.json",
+  "title": "OS Alignment v1",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "cpTags": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(CP[1-7]|\\[drift\\?\\])$" },
+      "uniqueItems": true
+    },
+    "businessArea": {
+      "oneOf": [
+        { "enum": ["Product", "Marketing", "Sales", "Customer Experience", "Ecosystem", "Region-US"] },
+        { "type": "null" }
+      ]
+    },
+    "craftArea": {
+      "oneOf": [
+        { "enum": ["Engineering", "Design", "Sales, including BDR", "RevOps", "Solution Engineering", "Customer Success + Deployment + Support", "Marketing", "Field Marketing & Community", "Partnerships", "Talent", "Finance", "Founder Office", "People / Legal"] },
+        { "type": "null" }
+      ]
+    },
+    "ownershipRoute": { "enum": ["Business", "Craft", "Coaching", "Company Decision"] },
+    "parentRefs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "relationship"],
+        "additionalProperties": true,
+        "properties": {
+          "id": { "type": "string" },
+          "relationship": { "enum": ["ladders_to", "contributes_to", "blocks", "depends_on", "duplicates", "promoted_from", "accepted_as", "rolls_up_to"] },
+          "label": { "type": "string" },
+          "url": { "type": "string" }
+        }
+      }
+    }
+  }
+}

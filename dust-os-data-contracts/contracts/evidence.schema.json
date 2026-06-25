@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/evidence-v1.schema.json",
+  "title": "Command Center OS Evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "observedAt"],
+  "properties": {
+    "type": { "enum": ["slack_thread", "slack_message", "pod_file", "pod_task", "pod_conversation", "calendar_event", "crm_record", "company_data", "manual_note", "external_url"] },
+    "url": { "type": "string" },
+    "path": { "type": "string" },
+    "title": { "type": "string" },
+    "observedAt": { "type": "string" },
+    "quote": { "type": "string", "maxLength": 500 },
+    "confidence": { "enum": ["high", "medium", "low"] }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/personal-os-team-signal-v1.schema.json",
+  "title": "Personal OS Team Signal v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion", "contract", "pod", "updatedAt", "signals"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "contract": { "const": "personal_os_team_signal_v1" },
+    "pod": {
+      "type": "object",
+      "required": ["id", "name", "layer", "owner"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "layer": { "const": "personal_os" },
+        "owner": { "type": "string" }
+      }
+    },
+    "updatedAt": { "type": "string" },
+    "signals": {
+      "type": "array",
+      "items": {
+        "allOf": [{ "$ref": "base-os-item.schema.json" }],
+        "properties": {
+          "targetPod": { "type": "string" },
+          "requestedAction": { "enum": ["ingest_as_team_goal", "ingest_as_team_commitment", "ingest_as_team_ask", "ingest_as_decision_needed", "watch_only", "promote_to_company_candidate"] },
+          "privacyBoundary": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "privateContextWithheld": { "type": "boolean" },
+              "safeSummary": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

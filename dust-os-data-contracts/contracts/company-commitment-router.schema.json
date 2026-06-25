@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/company-commitment-router-v1.schema.json",
+  "title": "Company Commitment Router v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion", "contract", "updatedAt", "items"],
+  "properties": {
+    "schemaVersion": { "oneOf": [{ "const": "company-commitment-router-v1" }, { "const": 1 }] },
+    "contract": { "const": "company_commitment_router_v1" },
+    "updatedAt": { "type": "string" },
+    "items": { "type": "array", "items": { "$ref": "base-os-item.schema.json" } },
+    "ownershipRoutes": { "type": "array", "items": { "enum": ["Business", "Craft", "Coaching", "Company Decision"] } },
+    "promotionCriteria": { "type": "array", "items": { "enum": ["cross_functional", "owner_tbd", "age_gt_5_days", "due_within_48h_unconfirmed", "blocks_cp", "pattern_in_2_plus_pods", "repeated_in_2_pods", "priority_drift", "area_owner_tbd", "route_conflict", "missing_source"] } },
+    "rollup": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "cpHeat": { "type": "object" },
+        "areaHeat": { "type": "object" },
+        "orphanCount": { "type": "integer", "minimum": 0 },
+        "driftCount": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

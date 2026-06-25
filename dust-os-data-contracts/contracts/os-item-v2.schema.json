@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/os-item-v2.schema.json",
+  "title": "OS Item v2",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["id", "schemaVersion", "itemType", "layer", "title", "status", "evidence", "createdAt", "updatedAt"],
+  "properties": {
+    "id": { "type": "string", "minLength": 3 },
+    "schemaVersion": { "const": "os_item_v2" },
+    "itemType": { "enum": ["goal", "commitment", "ask", "risk", "decision", "signal", "metric", "initiative", "work_block"] },
+    "layer": { "enum": ["personal_os", "team_os", "company_os", "company"] },
+    "title": { "type": "string", "minLength": 1, "maxLength": 140 },
+    "summary": { "type": "string", "maxLength": 500 },
+    "owner": { "type": "object", "additionalProperties": true, "properties": { "name": { "type": ["string", "null"] }, "kind": { "enum": ["person", "team", "area", "tbd"] } } },
+    "dri": { "type": "object", "additionalProperties": true, "properties": { "name": { "type": ["string", "null"] }, "kind": { "enum": ["person", "team", "area", "tbd"] } } },
+    "due": { "type": ["string", "null"] },
+    "visibility": { "enum": ["personal_private", "team_visible", "company_visible", "public_team_visible"] },
+    "alignment": { "$ref": "alignment.schema.json" },
+    "status": { "$ref": "status.schema.json" },
+    "metrics": { "type": "array", "items": { "$ref": "metric.schema.json" } },
+    "evidence": { "type": "array", "items": { "$ref": "evidence.schema.json" } },
+    "source": { "type": "object", "additionalProperties": true },
+    "handoff": { "$ref": "handoff.schema.json" },
+    "promotionHints": { "type": "object", "additionalProperties": true },
+    "createdAt": { "type": "string" },
+    "updatedAt": { "type": "string" }
+  }
+}

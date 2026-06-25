@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/team-os-goals-ledger-v2.schema.json",
+  "title": "Team OS Goals Ledger v2",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion", "contract", "pod", "updatedAt", "dustweek", "goals", "commitments", "asks", "decisions", "risks"],
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "contract": { "oneOf": [{ "const": "team_os_commitment_ledger_v2" }, { "const": "team_os_commitment_ledger_v1" }] },
+    "pod": {
+      "type": "object",
+      "required": ["id", "name", "layer", "unit"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "layer": { "const": "team_os" },
+        "unit": { "type": "string" }
+      }
+    },
+    "updatedAt": { "type": "string" },
+    "dustweek": { "oneOf": [{ "type": "integer" }, { "type": "string" }] },
+    "goals": { "type": "array", "items": { "$ref": "base-os-item.schema.json" } },
+    "commitments": { "type": "array", "items": { "$ref": "base-os-item.schema.json" } },
+    "asks": { "type": "array", "items": { "$ref": "base-os-item.schema.json" } },
+    "decisions": { "type": "array", "items": { "$ref": "base-os-item.schema.json" } },
+    "risks": { "type": "array", "items": { "$ref": "base-os-item.schema.json" } },
+    "normalizedItems": { "type": "array", "items": { "$ref": "os-item-v2.schema.json" } }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/handoff-v1.schema.json",
+  "title": "OS Handoff v1",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "requestedAction": { "enum": ["ingest_as_team_goal", "ingest_as_team_commitment", "ingest_as_team_ask", "ingest_as_decision_needed", "watch_only", "promote_to_hq_candidate", "accept", "watch", "promote", "close", "decide"] },
+    "acceptanceState": { "enum": ["proposed", "accepted", "rejected", "merged", "promoted", "closed", "watch"] },
+    "acceptedAsItemId": { "type": ["string", "null"] },
+    "acceptedBy": { "type": ["string", "null"] },
+    "acceptedAt": { "type": ["string", "null"] },
+    "targetPod": { "type": ["string", "null"] },
+    "sourceItemId": { "type": ["string", "null"] },
+    "privacyBoundary": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "privateContextWithheld": { "type": "boolean" },
+        "safeSummary": { "type": "string" }
+      }
+    }
+  }
+}

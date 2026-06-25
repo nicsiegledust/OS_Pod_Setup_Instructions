@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/recommended-action-v1.schema.json",
+  "title": "Recommended Action v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["actionId", "date", "rank", "actionScore", "action", "taskAlignment", "feedbackState"],
+  "properties": {
+    "actionId": { "type": "string" },
+    "date": { "type": "string" },
+    "rank": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "actionScore": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "scoreComponents": { "type": "object" },
+    "accountOrArea": { "type": ["string", "null"] },
+    "action": { "type": "string" },
+    "theRead": { "type": ["string", "null"] },
+    "thePlay": { "type": ["string", "null"] },
+    "taskAlignment": { "enum": ["linked_task", "missing_task", "no_task_needed", "workbench_exists", "duplicate_risk", "stale_task"] },
+    "linkedTaskSId": { "type": ["string", "null"] },
+    "feedbackState": { "enum": ["pending", "accepted", "skipped", "bad_rec", "completed", "moved_forward"] }
+  }
+}

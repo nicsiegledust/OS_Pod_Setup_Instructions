@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://your-workspace.example.com/contracts/os/cp-tag-v1.schema.json",
+  "title": "Company Priority Tag v1",
+  "oneOf": [
+    { "type": "string", "pattern": "^CP[1-7]$" },
+    { "type": "string", "const": "[drift?]" },
+    { "type": "array", "items": { "type": "string", "pattern": "^(CP[1-7]|\\[drift\\?\\])$" }, "uniqueItems": true }
+  ],
+  "description": "Use CP1 through CP7 only when mapping is clear. Use [drift?] for visible work without a clear priority mapping. Parse legacy P1 through P7 as aliases, but write CPn."
+}

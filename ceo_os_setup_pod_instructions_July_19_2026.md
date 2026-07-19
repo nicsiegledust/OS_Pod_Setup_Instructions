@@ -120,6 +120,11 @@ and logging to `run/`.
 
 ## Phase 3 — Instantiate the banner
 
+**Template source:** the ready-to-fill banner lives alongside this doc in the repo:
+[`CEO_OS_Banner_Template.tsx`](https://github.com/nicsiegledust/OS_Pod_Setup_Instructions/blob/main/CEO_OS_Banner_Template.tsx)
+- Copy it into the new Pod, replace every `{{TOKEN}}` (search for `{{`), then flip
+  `DEMO_MODE` to `false` and `POD_WIRED` to `true` once the engines + exec-action exist.
+
 1. Copy `CEO_OS_Banner_Template.tsx` into the new Pod.
 2. Replace every `{{TOKEN}}` using the table below (plain find-and-replace; all tokens live
    in string literals, so the file compiles before AND after substitution).

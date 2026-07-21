@@ -1,0 +1,11 @@
+{ "$schema": "http://json-schema.org/draft-07/schema#", "title": "state/health.json",
+  "type": "object", "required": ["overall", "checkedAt", "engines"],
+  "properties": {
+    "overall": { "enum": ["green", "yellow", "red"] },
+    "checkedAt": { "type": "string" },
+    "engines": { "type": "object", "additionalProperties": { "type": "object", "properties": {
+      "status": { "enum": ["ok", "stale", "unknown"] },
+      "lastRun": { "type": "string" }, "fireCount": { "type": "integer" },
+      "maxGapH": { "type": "integer" } } } }
+  },
+  "description": "Written ONLY by the health-check pod function. The banner derives a floor from dashboard_data.lastRefreshed so a dead sentinel can never show green." }

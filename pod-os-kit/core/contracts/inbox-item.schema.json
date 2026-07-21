@@ -1,0 +1,11 @@
+{ "$schema": "http://json-schema.org/draft-07/schema#", "title": "state/inbox.jsonl line",
+  "type": "object", "required": ["id", "ts", "type"],
+  "properties": {
+    "id": { "type": "string" }, "ts": { "type": "string" },
+    "type": { "enum": ["note", "email", "slack", "signal"] },
+    "note": { "type": "string", "description": "verbatim user words; never rewritten" },
+    "source": { "type": "string" },
+    "triaged": { "type": "boolean" },
+    "snoozedUntil": { "type": "string" },
+    "annotations": { "type": "array", "items": { "type": "string" }, "description": "agent lines prefixed with the ↳ marker" }
+  } }

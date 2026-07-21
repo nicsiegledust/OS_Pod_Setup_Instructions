@@ -1,0 +1,13 @@
+{ "$schema": "http://json-schema.org/draft-07/schema#", "title": "state/tasks.json",
+  "type": "object", "required": ["version", "updated", "tasks"],
+  "properties": { "version": { "type": "integer" }, "updated": { "type": "string" },
+    "tasks": { "type": "array", "items": { "type": "object", "required": ["id", "title", "status"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string", "description": "P{0-3} · {YYYY-MM-DD} · {Context}: {action}; relative date words banned" },
+        "status": { "enum": ["new", "active", "blocked", "done"] },
+        "priority": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "due": { "type": "string", "description": "YYYY-MM-DD; absent renders an honest 'missing date' warning, never fabricated" },
+        "context": { "type": "string" }, "whyTag": { "type": "string" },
+        "podTaskSId": { "type": "string", "description": "canonical Pod task id when mirrored" }
+      } } } } }

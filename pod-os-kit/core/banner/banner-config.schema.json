@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "banner-config.json",
+  "type": "object",
+  "required": ["version", "workspaceUrl", "slackChannel", "tabs", "wakeupDefs"],
+  "properties": {
+    "version": { "type": "integer" },
+    "updated": { "type": "string", "description": "YYYY-MM-DD" },
+    "workspaceUrl": { "type": "string" },
+    "slackChannel": { "type": "string", "description": "daily brief channel, e.g. #jane_os" },
+    "logoToken": { "type": "string", "description": "optional img.logo.dev token for company logos" },
+    "tabs": {
+      "type": "array", "minItems": 2, "maxItems": 6,
+      "items": { "type": "string", "enum": ["today", "my-plate", "waiting-on", "inbox", "news", "rituals", "pipe", "projects", "campaigns", "agents", "queue"] },
+      "description": "ordered tab keys; each maps to a block in core/tabs/"
+    },
+    "captureMarkers": {
+      "type": "object",
+      "properties": { "task": { "type": "string", "default": "!" }, "taskWithBlock": { "type": "string", "default": "?" } }
+    },
+    "taskCap": { "type": "integer", "default": 10 },
+    "wakeupDefs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "name", "schedule", "maxGapH"],
+        "properties": {
+          "key": { "type": "string" }, "name": { "type": "string" },
+          "schedule": { "type": "string", "description": "human-readable, local time" },
+          "maxGapH": { "type": "integer", "description": "hours before the health check marks this engine stale" }
+        }
+      }
+    }
+  }
+}

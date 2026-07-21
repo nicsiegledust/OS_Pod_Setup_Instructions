@@ -1,0 +1,7 @@
+{ "$schema": "http://json-schema.org/draft-07/schema#", "title": "state/waiting.jsonl line",
+  "type": "object", "required": ["id", "who", "what"],
+  "properties": {
+    "id": { "type": "string" }, "who": { "type": "string" }, "what": { "type": "string" },
+    "since": { "type": "string" }, "nudgeAfter": { "type": "string", "description": "YYYY-MM-DD; overdue styling past this" },
+    "status": { "enum": ["open", "done", "killed"] }, "sourceUrl": { "type": "string" }
+  } }

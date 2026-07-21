@@ -1,0 +1,9 @@
+{ "$schema": "http://json-schema.org/draft-07/schema#", "title": "dashboard_data.json",
+  "type": "object", "required": ["version", "lastRefreshed"],
+  "properties": {
+    "version": { "type": "integer" },
+    "lastRefreshed": { "type": "string", "description": "ISO timestamp; drives the LIVE/STALE badge and the client-side health derivation" },
+    "top3": { "type": "array", "maxItems": 3, "items": { "type": "string" } },
+    "numbers": { "type": "object", "description": "role-pack scoreboard (quota attainment, hires, launches); render only what exists" },
+    "system_notes": { "type": "array", "items": { "type": "string" }, "description": "honest gaps from the last run" }
+  } }
